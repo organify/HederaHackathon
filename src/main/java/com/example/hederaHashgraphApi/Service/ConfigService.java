@@ -1,4 +1,4 @@
-package com.example.hederaHashgraphApi.Utilities;
+package com.example.hederaHashgraphApi.Service;
 
 import java.security.spec.InvalidKeySpecException;
 

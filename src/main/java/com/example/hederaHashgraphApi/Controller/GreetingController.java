@@ -1,7 +1,7 @@
 package com.example.hederaHashgraphApi.Controller;
 
 import com.example.hederaHashgraphApi.Model.AppProperties;
-import com.example.hederaHashgraphApi.Utilities.ConfigService;
+import com.example.hederaHashgraphApi.Service.ConfigService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -22,8 +22,8 @@ public class AccountService extends AbstractBaseService {
             HederaAccount accountXferTo = new HederaAccount();
 
             // setup transaction/query defaults (durations, etc...)
-            account.txQueryDefaults = txQueryDefaultsTo;
-            accountXferTo.txQueryDefaults = txQueryDefaultsFrom;
+            account.txQueryDefaults = txQueryDefaultsFrom;
+            accountXferTo.txQueryDefaults = txQueryDefaultsTo;
 
             // make the transfer
             HederaTransactionResult transferResult = account.send(accountXferTo.getHederaAccountID(), data.amount);
@@ -46,8 +46,8 @@ public class AccountService extends AbstractBaseService {
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
 }

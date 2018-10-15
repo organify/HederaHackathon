@@ -40,6 +40,11 @@
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.hedera</groupId>
+            <artifactId>sdk</artifactId>
+            <version>0.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

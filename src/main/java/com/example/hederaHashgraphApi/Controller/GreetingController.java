@@ -1,5 +1,6 @@
 package com.example.hederaHashgraphApi.Controller;
 
+import com.example.hederaHashgraphApi.AccountCreate;
 import com.example.hederaHashgraphApi.Model.AppProperties;
 import com.example.hederaHashgraphApi.Utilities.ConfigService;
 import org.json.simple.JSONObject;
@@ -17,11 +18,11 @@ import java.security.spec.InvalidKeySpecException;
 @EnableConfigurationProperties(AppProperties.class)
 public class GreetingController {
     @Autowired
-    private ConfigService config;
+    private AccountCreate account;
 
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public JSONObject index() throws InvalidKeySpecException {
-        //var t = config.getTxQueryDefaults();
+    public JSONObject index() throws InvalidKeySpecException, Exception {
+        account.CreateNewAccount();
         var data = "Hello";
         JSONObject obj = new JSONObject();
 

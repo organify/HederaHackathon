@@ -15,10 +15,10 @@ public class AppProperties {
     public long nodeAccountRealm = 0;
     public long nodeAccountNum = 0;
 
-    public String pubKey = "";
-    public String privKey = "";
+    public String publicKey = System.getProperty("publicKey","");
+    public String privateKey = System.getProperty("privateKey","");
 
-    public long payAccountShard = 0;
-    public long payAccountRealm = 0;
-    public long payAccountNum = 0;
+    public long accountShard = 0;
+    public long accountRealm = 0;
+    public long accountNum = 0;
 }

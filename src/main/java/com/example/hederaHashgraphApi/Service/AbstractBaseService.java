@@ -22,24 +22,27 @@ public abstract class AbstractBaseService {
     private AppProperties getAppProperties() {
         AppProperties appProperties = new AppProperties();
 
-        appProperties.setNodeAddress(environment.getProperty("nodeaddress"));
-        appProperties.setNodePort(Integer.parseInt(environment.getProperty("nodeport")));
-        appProperties.setNodeAccountShard(Long.parseLong(environment.getProperty("nodeAccountShard")));
-        appProperties.setNodeAccountRealm(Long.parseLong(environment.getProperty("nodeAccountRealm")));
-        appProperties.setNodeAccountNum(Long.parseLong(environment.getProperty("nodeAccountNum")));
+        appProperties.setNodeAddress(environment.getProperty("node.address"));
+        appProperties.setNodePort(Integer.parseInt(environment.getProperty("node.port")));
+        appProperties.setNodeAccountShard(Long.parseLong(environment.getProperty("node.account.shard")));
+        appProperties.setNodeAccountRealm(Long.parseLong(environment.getProperty("node.account.realm")));
+        appProperties.setNodeAccountNum(Long.parseLong(environment.getProperty("node.account.num")));
 
-        appProperties.setPublicKey(environment.getProperty("pubkey"));
-        appProperties.setPrivateKey(environment.getProperty("privkey"));
-
-        appProperties.setPayAccountShard(Long.parseLong(environment.getProperty("payingAccountShard")));
-        appProperties.setPayAccountRealm(Long.parseLong(environment.getProperty("payingAccountRealm")));
-        appProperties.setPayAccountNum(Long.parseLong(environment.getProperty("payingAccountNum")));
+        appProperties.setPayAccountShard(Long.parseLong(environment.getProperty("paying.account.shard")));
+        appProperties.setPayAccountRealm(Long.parseLong(environment.getProperty("paying.account.realm")));
 
         return appProperties;
     }
 
-    protected HederaTransactionAndQueryDefaults getTxQueryDefaults() throws InvalidKeySpecException {
+    private void setAccountProperties(String accountID, AppProperties appProperties) {
+        appProperties.setPublicKey(environment.getProperty(String.format("%s.public.key", accountID)));
+        appProperties.setPrivateKey(environment.getProperty(String.format("%s.private.key", accountID)));
+        appProperties.setPayAccountNum(Long.parseLong(accountID));
+    }
+
+    protected HederaTransactionAndQueryDefaults getTxQueryDefaults(String accountID) throws InvalidKeySpecException {
         AppProperties appProperties = getAppProperties();
+        setAccountProperties(accountID, appProperties);
 
         // setup node account ID
         HederaAccountID nodeAccountID = new HederaAccountID(appProperties.getNodeAccountShard(), appProperties.getNodeAccountRealm(), appProperties.getNodePort());

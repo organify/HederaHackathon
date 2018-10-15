@@ -14,15 +14,16 @@ public class AccountService extends AbstractBaseService {
 
     public Boolean send(TransferRequestDataModel data) {
         try {
-            HederaTransactionAndQueryDefaults txQueryDefaults = this.getTxQueryDefaults();
+            HederaTransactionAndQueryDefaults txQueryDefaultsTo = this.getTxQueryDefaults(data.to);
+            HederaTransactionAndQueryDefaults txQueryDefaultsFrom = this.getTxQueryDefaults(data.from);
 
             // new account objects
             HederaAccount account = new HederaAccount();
             HederaAccount accountXferTo = new HederaAccount();
 
             // setup transaction/query defaults (durations, etc...)
-            account.txQueryDefaults = txQueryDefaults;
-            accountXferTo.txQueryDefaults = txQueryDefaults;
+            account.txQueryDefaults = txQueryDefaultsTo;
+            accountXferTo.txQueryDefaults = txQueryDefaultsFrom;
 
             // make the transfer
             HederaTransactionResult transferResult = account.send(accountXferTo.getHederaAccountID(), data.amount);

@@ -7,16 +7,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.spec.InvalidKeySpecException;
 
-@RequestMapping("/api/greeting")
 @RestController
 public class GreetingController {
     @Autowired
     private ConfigService config;
-
-    @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping("/api/greeting")
     public JSONObject index() throws InvalidKeySpecException {
         //var t = config.getTxQueryDefaults();
         var data = "Hello";

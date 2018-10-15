@@ -1,22 +1,19 @@
 package com.example.hederaHashgraphApi.Controller;
 
-import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.example.hederaHashgraphApi.Model.TransferRequestModel;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 public class TransferController {
-    @PostMapping("api/transfer")
-    public JSONObject Post() {
-        //var t = config.getTxQueryDefaults();
-        var data = "Hello";
-        JSONObject obj = new JSONObject();
+    @PostMapping("/api/transfer")
+    public ResponseEntity<String> Post(@RequestBody TransferRequestModel request) {
 
-        obj.put("data", data);
-        return obj;
+        return ResponseEntity.ok("Request accepted, money sent");
     }
 }

@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.security.spec.InvalidKeySpecException;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * Service to handle all operations related to the Hedera accounts.
+ */
 @Service
 public class AccountService extends AbstractBaseService {
     final Logger logger = LoggerFactory.getLogger(AccountService.class);
@@ -24,7 +26,7 @@ public class AccountService extends AbstractBaseService {
      * @throws InvalidKeySpecException
      * @throws Exception
      */
-    public void createNewAccount(String accountId) throws InvalidKeySpecException, Exception  {
+    public long createNewAccount(String accountId) throws InvalidKeySpecException, Exception  {
 
         // new account object
         HederaAccount account = new HederaAccount();
@@ -37,6 +39,7 @@ public class AccountService extends AbstractBaseService {
         account = this.createAccount(account, txQueryDefaults.payingKeyPair, 100000);
         if (account != null) {
             logger.info("Account has been created successfully");
+            return account.accountNum;
         } else {
             logger.info("Account creation has failed");
             throw new Exception("Account creation has failed");

@@ -21,9 +21,9 @@ public class AccountController {
     public JSONObject createAccount(@RequestBody RequestDataModel<CreateRequestModel> request) throws InvalidKeySpecException, Exception {
 
         // create the new account
-        accountService.createNewAccount(request.data.accountId);
+        long accountNum = accountService.createNewAccount(request.data.accountId);
 
-        var data = "Account has been created";
+        var data = "Account with number " + accountNum + " has been created.";
         JSONObject result = new JSONObject();
         result.put("data", data);
         return result;

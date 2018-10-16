@@ -23,7 +23,7 @@ public class AccountService extends AbstractBaseService {
      * @throws InvalidKeySpecException
      * @throws Exception
      */
-    public void createNewAccount(String accountId) throws InvalidKeySpecException, Exception  {
+    public long createNewAccount(String accountId) throws InvalidKeySpecException, Exception  {
 
         // new account object
         HederaAccount account = new HederaAccount();
@@ -36,6 +36,7 @@ public class AccountService extends AbstractBaseService {
         account = this.createAccount(account, txQueryDefaults.payingKeyPair, 100000);
         if (account != null) {
             logger.info("Account has been created successfully");
+            return account.accountNum;
         } else {
             logger.info("Account creation has failed");
             throw new Exception("Account creation has failed");

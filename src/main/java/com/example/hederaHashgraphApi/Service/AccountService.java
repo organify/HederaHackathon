@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class AccountService extends AbstractBaseService {
     final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
-    public Boolean send(TransferRequestDataModel data) {
+    public long send(TransferRequestDataModel data) throws Exception{
         try {
             HederaTransactionAndQueryDefaults txQueryDefaultsTo = this.getTxQueryDefaults(data.to);
             HederaTransactionAndQueryDefaults txQueryDefaultsFrom = this.getTxQueryDefaults(data.from);
@@ -37,20 +37,23 @@ public class AccountService extends AbstractBaseService {
                 if (receipt.transactionStatus == HederaTransactionStatus.SUCCESS) {
                     // if query successful, print it
                     logger.info("===>Transfer successful");
-                    return true;
+                    var balance = accountXferTo.getBalance();
+                    return balance;
                 } else {
                     logger.info("Failed with transactionStatus:" + receipt.transactionStatus.toString());
+                    throw new Exception("Unsuccess transaction");
                 }
             } else {
                 logger.info("Failed with getPrecheckResult:" + transferResult.getPrecheckResult().toString());
+                throw new Exception("Unsuccess transaction");
             }
 
 
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
+            throw e;
         }
-        return false;
     }
 
 }

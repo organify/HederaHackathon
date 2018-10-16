@@ -1,24 +1,94 @@
 package com.example.hederaHashgraphApi.Model;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-/**
- * Created by Java Developer Zone on 26-08-2017.
- */
-@ConfigurationProperties()
 public class AppProperties {
+    private String nodeAddress;
+    private int nodePort;
+    private long nodeAccountShard;
+    private long nodeAccountRealm;
+    private long nodeAccountNum;
+    private String publicKey;
+    private String privateKey;
+    private long payAccountShard;
+    private long payAccountRealm;
+    private long payAccountNum;
 
-    public String nodeAddress = "";
-    public int nodePort = 0;
+    public String getNodeAddress() {
+        return nodeAddress;
+    }
 
-    public long nodeAccountShard = 0;
-    public long nodeAccountRealm = 0;
-    public long nodeAccountNum = 0;
+    public void setNodeAddress(String nodeAddress) {
+        this.nodeAddress = nodeAddress;
+    }
 
-    public String publicKey = System.getProperty("publicKey","");
-    public String privateKey = System.getProperty("privateKey","");
+    public int getNodePort() {
+        return nodePort;
+    }
 
-    public long accountShard = 0;
-    public long accountRealm = 0;
-    public long accountNum = 0;
+    public void setNodePort(int nodePort) {
+        this.nodePort = nodePort;
+    }
+
+    public long getNodeAccountShard() {
+        return nodeAccountShard;
+    }
+
+    public void setNodeAccountShard(long nodeAccountShard) {
+        this.nodeAccountShard = nodeAccountShard;
+    }
+
+    public long getNodeAccountRealm() {
+        return nodeAccountRealm;
+    }
+
+    public void setNodeAccountRealm(long nodeAccountRealm) {
+        this.nodeAccountRealm = nodeAccountRealm;
+    }
+
+    public long getNodeAccountNum() {
+        return nodeAccountNum;
+    }
+
+    public void setNodeAccountNum(long nodeAccountNum) {
+        this.nodeAccountNum = nodeAccountNum;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public long getPayAccountShard() {
+        return payAccountShard;
+    }
+
+    public void setPayAccountShard(long payAccountShard) {
+        this.payAccountShard = payAccountShard;
+    }
+
+    public long getPayAccountRealm() {
+        return payAccountRealm;
+    }
+
+    public void setPayAccountRealm(long payAccountRealm) {
+        this.payAccountRealm = payAccountRealm;
+    }
+
+    public long getPayAccountNum() {
+        return payAccountNum;
+    }
+
+    public void setPayAccountNum(long payAccountNum) {
+        this.payAccountNum = payAccountNum;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.hederaHashgraphApi.Service;
 
+import java.security.spec.InvalidKeySpecException;
 import com.hedera.sdk.common.HederaAccountID;
 import com.hedera.sdk.common.HederaDuration;
 import com.hedera.sdk.common.HederaKey.KeyType;

@@ -19,6 +19,15 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    /**
+     * Called from the REST API to create a new Hedera Account.
+     *
+     * @param request contains a JSON structure providing the master account number to
+     *                create the account for.
+     * @return
+     * @throws InvalidKeySpecException
+     * @throws Exception
+     */
     @PostMapping(value = "/api/createAccount")
     public JSONObject createAccount(@RequestBody RequestDataModel<BaseRequestModel> request) throws InvalidKeySpecException, Exception {
 
@@ -31,6 +40,13 @@ public class AccountController {
         return result;
     }
 
+    /**
+     * Called from the REST API to transfer tokens.
+     *
+     * @param request conains a JSON structure with the involved account and the
+     *                tokens to be transferred.
+     * @return
+     */
     @PostMapping("/api/transfer")
     public ResponseEntity<String> transfer(@RequestBody RequestDataModel<TransferRequestModel> request) {
 
@@ -42,6 +58,14 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    /**
+     * Gets the balance for a certain account.
+     *
+     * @param accountId the id of the account.
+     *
+     * @return
+     */
     @GetMapping("/api/getBalance")
     public ResponseEntity<BalanceResponseObject> getBalance(String accountId) {
 
@@ -54,4 +78,3 @@ public class AccountController {
         }
     }
 }
-

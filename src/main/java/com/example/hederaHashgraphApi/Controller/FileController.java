@@ -1,6 +1,6 @@
 package com.example.hederaHashgraphApi.Controller;
 
-import com.example.hederaHashgraphApi.Service.KeystoreService;
+import com.example.hederaHashgraphApi.Service.FileService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class KeystoreController {
+public class FileController {
 
     @Autowired
-    private KeystoreService keystoreService;
+    private FileService fileService;
 
     @PostMapping("/api/initKeystore")
     public ResponseEntity<String> initKeystore(@RequestBody JSONObject request) {
 
-        return keystoreService.createFile(request)
+        return fileService.createFile(request)
                 ? ResponseEntity.ok("Keystore file has been created")
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }

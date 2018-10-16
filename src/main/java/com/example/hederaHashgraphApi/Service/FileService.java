@@ -1,22 +1,81 @@
 package com.example.hederaHashgraphApi.Service;
 
-import org.springframework.stereotype.Service;
-import java.util.Arrays;
-
+import com.hedera.sdk.common.*;
+import com.hedera.sdk.file.HederaFile;
+import com.hedera.sdk.file.HederaFileCreateDefaults;
+import com.hedera.sdk.transaction.HederaTransactionResult;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import com.hedera.sdk.common.HederaPrecheckResult;
-import com.hedera.sdk.common.HederaTransactionReceipt;
-import com.hedera.sdk.common.HederaTransactionStatus;
-import com.hedera.sdk.common.Utilities;
-import com.hedera.sdk.file.HederaFile;
-import com.hedera.sdk.transaction.HederaTransactionResult;
+import java.time.Instant;
+import java.util.Arrays;
 
 @Service
-public class FileService {
-    public HederaFile create(HederaFile file, byte[] contents) throws Exception {
-        final Logger logger = LoggerFactory.getLogger(FileService.class);
+public class FileService extends AbstractBaseService {
+
+    final Logger logger = LoggerFactory.getLogger(FileService.class);
+
+    /**
+     * Creates the file in the ledger.
+     *
+     * @param data the JSON structure to write into the file.
+     * @return
+     */
+    public Boolean createFile (JSONObject data) {
+
+        try{
+            HederaTransactionAndQueryDefaults txDef = this.getTxQueryDefaults("1006");
+
+            HederaFile file = new HederaFile(new HederaTransactionID(txDef.payingAccountID));
+            file.setNode(txDef.node);
+            byte[] bytes = data.toJSONString().getBytes();
+            var defaults = new HederaFileCreateDefaults();
+
+            // Meant to be a workaround for a low level SDK bug resulting in a
+            // FAIL_INVALID Tx Status according to a hin in Slack. However, it doesn't help.
+            Thread.sleep(1500);
+
+            HederaTransactionResult result = file.createNoRecord(
+                    0, 0, 1006,
+                    0,0,3,
+                    32936*2,"File creation",
+                    Instant.now().plusSeconds(1), bytes, txDef.payingKeyPair);
+
+            // was it successful ?
+            if (result.getPrecheckResult() == HederaPrecheckResult.OK) {
+                // yes, get a receipt for the transaction
+                HederaTransactionReceipt receipt  = Utilities.getReceipt(
+                        result.hederaTransactionID, txDef.node,
+                        500, 70, 0);
+                if (receipt.transactionStatus == HederaTransactionStatus.SUCCESS) {
+                    logger.info("File with number " + file.getFileID().fileNum + " has been created successfully");
+                    return true;
+                } else {
+                    throw new Exception("File creation failed with transactionStatus:" + receipt.transactionStatus.toString());
+                }
+            } else {
+                throw new Exception("File creation failed with getPrecheckResult:" +
+                        result.getPrecheckResult().toString());
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Creates a file to store the smart contract.
+     *
+     * @param file
+     * @param contents
+     * @return
+     * @throws Exception
+     */
+    public HederaFile createSmartContract(HederaFile file, byte[] contents) throws Exception {
+
         // new file
         long shardNum = 0;
         long realmNum = 0;
@@ -32,7 +91,7 @@ public class FileService {
         logger.info("");
         logger.info("fileChunk:" + Math.min(fileChunkSize, contents.length));
 
-        // create the new file
+        // createSmartContract the new file
         // file creation transaction
         HederaTransactionResult createResult = file.create(shardNum, realmNum, fileChunk, null);
         // was it successful ?

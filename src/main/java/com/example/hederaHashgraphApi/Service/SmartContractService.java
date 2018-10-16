@@ -1,11 +1,9 @@
 package com.example.hederaHashgraphApi.Service;
 
-import com.hedera.sdk.account.HederaAccount;
 import com.hedera.sdk.common.*;
 import com.hedera.sdk.contract.HederaContract;
 import com.hedera.sdk.file.HederaFile;
 import com.hedera.sdk.transaction.HederaTransactionResult;
-import com.hederahashgraph.api.proto.java.FileCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -35,7 +33,7 @@ public class SmartContractService extends AbstractBaseService
 
 
 
-        // create the new contract
+        // createSmartContract the new contract
         // contract creation transaction
         HederaTransactionResult createResult = contract.create(shardNum, realmNum, fileID, initialBalance, gas,
                 constructorParameters, autoRenewPeriod);
@@ -70,7 +68,7 @@ public class SmartContractService extends AbstractBaseService
             //account.setNode(txQueryDefaults.node);
 
             txQueryDefaults.fileWacl = txQueryDefaults.payingKeyPair;
-            // create a file
+            // createSmartContract a file
             // new file object
             HederaFile file = new HederaFile();
             // setup transaction/query defaults (durations, etc...)
@@ -90,15 +88,15 @@ public class SmartContractService extends AbstractBaseService
             buffer.flush();
             byte[] fileContents = buffer.toByteArray();
 
-            // create a file with contents
-            file = fileService.create(file, fileContents);
+            // createSmartContract a file with contents
+            file = fileService.createSmartContract(file, fileContents);
 
             // new contract object
             HederaContract contract = new HederaContract();
             // setup transaction/query defaults (durations, etc...)
             contract.txQueryDefaults = txQueryDefaults;
 
-            // create a contract
+            // createSmartContract a contract
             contract = create(contract, file.getFileID(), 0, new byte[0]);
             return contract != null;
         }

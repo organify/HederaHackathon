@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.security.spec.InvalidKeySpecException;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AccountService extends AbstractBaseService {
@@ -96,9 +97,9 @@ public class AccountService extends AbstractBaseService {
      * through the REST API.
      *
      * @param data request data received through the REST API
-     * @return true if the transaction has been processed successfully.
+     * @return transfer to balance account
      */
-    public Boolean send(TransferRequestModel data) {
+    public Boolean send(TransferRequestModel data) throws Exception{
         try {
             HederaTransactionAndQueryDefaults txQueryDefaultsTo = this.getTxQueryDefaults(data.to);
             HederaTransactionAndQueryDefaults txQueryDefaultsFrom = this.getTxQueryDefaults(data.from);
@@ -122,22 +123,29 @@ public class AccountService extends AbstractBaseService {
                 HederaTransactionReceipt receipt  = Utilities.getReceipt(
                         accountFrom.hederaTransactionID,
                         accountFrom.txQueryDefaults.node,
-                        100, 50, 50);
+                        500, 70, 0);
                 if (receipt.transactionStatus == HederaTransactionStatus.SUCCESS) {
-                    // if query successful, print it
-                    logger.info("Transfer has been successful");
                     return true;
                 } else {
-                    logger.info("Transfer failed with transactionStatus:" + receipt.transactionStatus.toString());
+                    throw new Exception("Transfer failed with transactionStatus:" + receipt.transactionStatus.toString());
                 }
             } else {
-                logger.info("Transfer failed with getPrecheckResult:" + transferResult.getPrecheckResult().toString());
+                throw new Exception("Transfer failed with getPrecheckResult:" + transferResult.getPrecheckResult().toString());
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
+            throw e;
         }
-        return false;
     }
+    public long getAccountBalance(String accountId) throws Exception{
+        HederaTransactionAndQueryDefaults txQueryDefaults = this.getTxQueryDefaults(accountId);
 
+        HederaAccount account = new HederaAccount(new HederaTransactionID(txQueryDefaults.payingAccountID));
+        account.txQueryDefaults = txQueryDefaults;
+        account.setNode(txQueryDefaults.node);
+
+        var balance = account.getBalance();
+        return balance;
+    }
 }

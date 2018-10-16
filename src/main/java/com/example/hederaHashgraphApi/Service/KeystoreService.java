@@ -36,7 +36,7 @@ public class KeystoreService extends AbstractBaseService {
                     0, 0, 1006,
                     0,0,3,
                     32936*2,"File creation",
-                    Instant.MAX, bytes, txDef.payingKeyPair);
+                    Instant.now().plusSeconds(1), bytes, txDef.payingKeyPair);
 
             // was it successful ?
             if (result.getPrecheckResult() == HederaPrecheckResult.OK) {

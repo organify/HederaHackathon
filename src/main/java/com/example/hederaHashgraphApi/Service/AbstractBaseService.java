@@ -45,7 +45,7 @@ public abstract class AbstractBaseService {
         setAccountProperties(accountID, appProperties);
 
         // setup node account ID
-        HederaAccountID nodeAccountID = new HederaAccountID(appProperties.getNodeAccountShard(), appProperties.getNodeAccountRealm(), appProperties.getNodePort());
+        HederaAccountID nodeAccountID = new HederaAccountID(appProperties.getNodeAccountShard(), appProperties.getNodeAccountRealm(), appProperties.getNodeAccountNum());
 
         // setup node
         HederaNode node = new HederaNode(appProperties.getNodeAddress(), appProperties.getNodePort(), nodeAccountID);

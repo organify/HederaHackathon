@@ -23,7 +23,7 @@ public class AccountController {
      * Called from the REST API to create a new Hedera Account.
      *
      * @param request contains a JSON structure providing the master account number to
-     *                createSmartContract the account for.
+     *                create the account for.
      * @return
      * @throws InvalidKeySpecException
      * @throws Exception
@@ -31,7 +31,7 @@ public class AccountController {
     @PostMapping(value = "/api/createAccount")
     public JSONObject createAccount(@RequestBody RequestDataModel<BaseRequestModel> request) throws InvalidKeySpecException, Exception {
 
-        // createSmartContract the new account
+        // create the new account
         long accountNum = accountService.createNewAccount(request.data.accountId);
 
         var data = "Account with number " + accountNum + " has been created.";

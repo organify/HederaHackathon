@@ -19,7 +19,7 @@ public class AccountService extends AbstractBaseService {
     final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     /**
-     * Called by the controller to createSmartContract a new account.
+     * Called by the controller to create a new account.
      *
      * @param accountId the master accountId of the User creating the Hedera Account.
      *
@@ -35,7 +35,7 @@ public class AccountService extends AbstractBaseService {
         HederaTransactionAndQueryDefaults txQueryDefaults = getTxQueryDefaults(accountId);
         account.txQueryDefaults = txQueryDefaults;
 
-        // createSmartContract an account
+        // create an account
         account = this.createAccount(account, txQueryDefaults.payingKeyPair, 100000);
         if (account != null) {
             logger.info("Account has been created successfully");

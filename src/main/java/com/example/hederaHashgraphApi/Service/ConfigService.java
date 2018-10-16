@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.security.spec.InvalidKeySpecException;
 
+/**
+ * Service to take care about reading and setting up the Hedera Account/Tx configuration.
+ */
 @Service
 public class ConfigService {
 	public String nodeAddress = "";

@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Arrays;
 
+/**
+ * Service to write files into the ledger to store Smart Contracts and Account data.
+ */
 @Service
 public class FileService extends AbstractBaseService {
 

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+/**
+ * Service to create a smart contract and store it into the file system.
+ */
 @Service
 public class SmartContractService extends AbstractBaseService
 {
@@ -19,6 +22,17 @@ public class SmartContractService extends AbstractBaseService
 
     @Autowired
     ResourceLoader resourceLoader;
+
+    /**
+     * Creates a new smart contract and stores it into the ledger.
+     *
+     * @param contract
+     * @param fileID
+     * @param initialBalance
+     * @param constParams
+     * @return
+     * @throws Exception
+     */
     private HederaContract create(HederaContract contract, HederaFileID fileID, long initialBalance, byte[] constParams) throws Exception {
         // new contract
         long shardNum = 0;
@@ -30,8 +44,6 @@ public class SmartContractService extends AbstractBaseService
         //fee 100
         contract.txQueryDefaults.node.contractCreateTransactionFee = 100;
         contract.txQueryDefaults.generateRecord = true;
-
-
 
         // createSmartContract the new contract
         // contract creation transaction
@@ -56,6 +68,12 @@ public class SmartContractService extends AbstractBaseService
         return contract;
     }
 
+    /**
+     * Creates a smart contract for a defined Hedera Account.
+     *
+     * @param accountId Id of the Hedera Account
+     * @return
+     */
     public  Boolean create(String accountId){
         try{
             HederaTransactionAndQueryDefaults txQueryDefaults = this.getTxQueryDefaults(accountId);

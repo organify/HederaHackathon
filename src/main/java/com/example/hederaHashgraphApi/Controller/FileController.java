@@ -15,6 +15,12 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
+    /**
+     * Initially stores the earlier created keystore data into the file system.
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/api/initKeystore")
     public ResponseEntity<String> initKeystore(@RequestBody JSONObject request) {
 

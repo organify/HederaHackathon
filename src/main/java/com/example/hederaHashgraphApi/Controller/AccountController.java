@@ -20,7 +20,7 @@ public class AccountController {
     private AccountService accountService;
 
     /**
-     * Called from the REST API to createSmartContract a new Hedera Account.
+     * Called from the REST API to create a new Hedera Account.
      *
      * @param request contains a JSON structure providing the master account number to
      *                createSmartContract the account for.
@@ -60,7 +60,7 @@ public class AccountController {
     }
 
     /**
-     * Gets the balance for a certain account.
+     * Called from the REST API to get the balance for a certain account.
      *
      * @param accountId the id of the account.
      *

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.security.spec.InvalidKeySpecException;
 
+/**
+ * Abstract Base Service taking care about basic Account/Tx configuration for all services.
+ */
 @Service
 public abstract class AbstractBaseService {
 

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.security.spec.InvalidKeySpecException;
 
+/**
+ * Service to handle all operations related to the Hedera accounts.
+ */
 @Service
 public class AccountService extends AbstractBaseService {
     final Logger logger = LoggerFactory.getLogger(AccountService.class);

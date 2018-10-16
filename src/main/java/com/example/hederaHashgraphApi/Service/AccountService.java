@@ -37,6 +37,7 @@ public class AccountService extends AbstractBaseService {
                 if (receipt.transactionStatus == HederaTransactionStatus.SUCCESS) {
                     // if query successful, print it
                     logger.info("===>Transfer successful");
+                    return true;
                 } else {
                     logger.info("Failed with transactionStatus:" + receipt.transactionStatus.toString());
                 }
@@ -44,12 +45,12 @@ public class AccountService extends AbstractBaseService {
                 logger.info("Failed with getPrecheckResult:" + transferResult.getPrecheckResult().toString());
             }
 
-            return true;
+
         } catch (Exception e) {
             logger.error(e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
 }

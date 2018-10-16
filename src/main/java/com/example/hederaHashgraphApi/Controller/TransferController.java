@@ -1,5 +1,6 @@
 package com.example.hederaHashgraphApi.Controller;
 
+import com.example.hederaHashgraphApi.Model.RequestDataModel;
 import com.example.hederaHashgraphApi.Model.TransferRequestModel;
 import com.example.hederaHashgraphApi.Service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class TransferController {
     private AccountService accountService;
 
     @PostMapping("/api/transfer")
-    public ResponseEntity<String> Post(@RequestBody TransferRequestModel request) {
+    public ResponseEntity<String> Post(@RequestBody RequestDataModel<TransferRequestModel> request) {
 
         return accountService.send(request.data)
                 ? ResponseEntity.ok("Request accepted, money sent")

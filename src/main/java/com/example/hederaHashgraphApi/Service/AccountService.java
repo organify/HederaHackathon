@@ -1,6 +1,6 @@
 package com.example.hederaHashgraphApi.Service;
 
-import com.example.hederaHashgraphApi.Model.TransferRequestDataModel;
+import com.example.hederaHashgraphApi.Model.TransferRequestModel;
 import com.hedera.sdk.account.HederaAccount;
 import com.hedera.sdk.common.*;
 import com.hedera.sdk.cryptography.HederaCryptoKeyPair;
@@ -97,7 +97,7 @@ public class AccountService extends AbstractBaseService {
      * @param data request data received through the REST API
      * @return true if the transaction has been processed successfully.
      */
-    public Boolean send(TransferRequestDataModel data) {
+    public Boolean send(TransferRequestModel data) {
         try {
             HederaTransactionAndQueryDefaults txQueryDefaultsTo = this.getTxQueryDefaults(data.to);
             HederaTransactionAndQueryDefaults txQueryDefaultsFrom = this.getTxQueryDefaults(data.from);

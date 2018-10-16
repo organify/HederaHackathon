@@ -1,5 +1,10 @@
 package com.example.hederaHashgraphApi.Model;
 
-public class TransferRequestModel {
-    public TransferRequestDataModel data;
+/**
+ * Data model of the request input to transfer Tokens between two Hedera accounts.
+ */
+public class TransferRequestModel extends RequestModel {
+    public String to;
+    public String from;
+    public long amount;
 }

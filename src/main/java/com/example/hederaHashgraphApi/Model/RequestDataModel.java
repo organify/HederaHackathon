@@ -5,6 +5,6 @@ package com.example.hederaHashgraphApi.Model;
  *
  * @param <DataModel>
  */
-public class RequestDataModel <DataModel extends RequestModel> {
+public class RequestDataModel <DataModel> {
     public DataModel data;
 }
